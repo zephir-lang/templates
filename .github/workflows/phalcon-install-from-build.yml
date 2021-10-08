@@ -1,0 +1,39 @@
+name: 'Install Phalcon extension after build and makes simple healthchecks.'
+
+on:
+  workflow_call:
+    inputs:
+      extensions:
+        description: 'PHP extensions which must be installed for current PHP version.'
+        type: string
+        required: true
+
+jobs:
+  install-from-build:
+    name: Install from build for PHP ${{ matrix.php }}-nts-x64
+    runs-on: ubuntu-20.04
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php: [ '7.4', '8.0' ]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: ${{ inputs.extensions }}
+          tools: pecl
+
+      - name: Install from build/ directory
+        run: |
+          cd build/
+          php gen-build.php
+          sudo ./install
+
+      - name: Validate extension
+        if: success()
+        run: php -d extension=phalcon -r 'echo (new Phalcon\Support\Version())->get();' || exit 1
