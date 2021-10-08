@@ -1,4 +1,4 @@
-name: Stubs Generation with Zephir for current project
+name: Phalcon Stubs Generation with Zephir for current project
 
 on:
   workflow_call:
