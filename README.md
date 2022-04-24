@@ -1,4 +1,6 @@
-# Github Actions Templates for Zephir and Phalcon
+# GitHub Actions Templates for Zephir and Phalcon
+
+Unified templates of Zephir.
 
 ## Inspection with PHP Code Sniffer
 
@@ -11,11 +13,11 @@ jobs:
       standard: ./phpcs.xml
 ```
 
-## Generates Stubs for Phalcon and validates with PSALM
+## Generate Stubs for Phalcon and validates with PSALM
 
 ```yaml
 jobs:
-  # Generates stubs and validates with PSALM
+  # Generate stubs and validates with PSALM
   stubs:
     uses: zephir-lang/templates/.github/workflows/phalcon-stubs.yml@main
     with:
