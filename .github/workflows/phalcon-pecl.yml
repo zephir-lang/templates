@@ -27,7 +27,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ inputs.extensions }}
+          php-version: ${{ inputs.php_version }}
           extensions: ${{ inputs.extensions }}
           tools: pecl
         env:
