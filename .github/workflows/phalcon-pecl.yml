@@ -7,6 +7,11 @@ on:
         description: 'PHP extensions which must be installed for current PHP version.'
         type: string
         required: true
+      php_version:
+        description: 'PHP version to build PECL package.'
+        type: string
+        required: false
+        default: '8.0'
     secrets:
       composer-token:
         required: false
@@ -15,14 +20,14 @@ jobs:
   stubs:
     name: Build Phalcon PECL package
 
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.0'
+          php-version: ${{ inputs.extensions }}
           extensions: ${{ inputs.extensions }}
           tools: pecl
         env:
@@ -51,7 +56,7 @@ jobs:
           (cd build && php gen-build.php)
 
       - name: Upload compile-errors.log
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: compile-errors
           path: compile-errors.log
@@ -72,7 +77,7 @@ jobs:
         run: pecl package-validate phalcon-pecl.tgz
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
           name: 'phalcon-pecl'
           path: phalcon-pecl.tgz
