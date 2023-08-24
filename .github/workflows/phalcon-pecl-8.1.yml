@@ -51,7 +51,7 @@ jobs:
           (cd build && php gen-build.php)
 
       - name: Upload compile-errors.log
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: compile-errors
           path: compile-errors.log
@@ -72,7 +72,7 @@ jobs:
         run: pecl package-validate phalcon-pecl.tgz
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
           name: 'phalcon-pecl'
           path: phalcon-pecl.tgz
