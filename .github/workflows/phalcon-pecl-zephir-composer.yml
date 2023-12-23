@@ -7,7 +7,7 @@ on:
         description: 'PHP extensions which must be installed for current PHP version.'
         type: string
         required: true
-      php-version:
+      php_version:
         description: 'PHP version from what to make PECL build. Must be highest supported version.'
         type: string
         required: true
