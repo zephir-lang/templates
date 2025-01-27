@@ -44,14 +44,14 @@ jobs:
           sudo apt-get update --quiet --yes 1>/dev/null
           sudo apt-get install --no-install-recommends -q -y re2c
 
-      - name: Install composer dependecies
-        run: composer install
+      - run: composer install --ignore-platform-reqs
 
       - name: Generate C Code
         run: |
           vendor/bin/zephir fullclean
           vendor/bin/zephir generate
           (cd build && php gen-build.php)
+
       - name: Upload compile-errors.log
         uses: actions/upload-artifact@v4
         with:
@@ -69,6 +69,7 @@ jobs:
           pecl package
           phalcon_package="`ls | grep phalcon-*tgz`"
           mv $phalcon_package phalcon-pecl.tgz
+
       - name: Validate Pecl Package
         run: pecl package-validate phalcon-pecl.tgz
 
