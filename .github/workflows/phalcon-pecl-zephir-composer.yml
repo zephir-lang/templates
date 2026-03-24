@@ -54,6 +54,7 @@ jobs:
 
       - name: Upload compile-errors.log
         uses: actions/upload-artifact@v4
+        if: failure()
         with:
           name: compile-errors
           path: compile-errors.log

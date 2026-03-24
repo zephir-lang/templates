@@ -11,7 +11,7 @@ on:
         description: 'PHP version to build PECL package.'
         type: string
         required: false
-        default: '8.0'
+        default: '8.4'
     secrets:
       composer-token:
         required: false
@@ -22,7 +22,7 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -57,6 +57,7 @@ jobs:
 
       - name: Upload compile-errors.log
         uses: actions/upload-artifact@v4
+        if: failure()
         with:
           name: compile-errors
           path: compile-errors.log
